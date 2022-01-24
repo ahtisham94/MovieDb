@@ -21,7 +21,12 @@ class MainActivityViewModel @ViewModelInject constructor(
 
     fun getMoviesList(apiKey: String) {
         Log.d("key", "getMoviesList: $apiKey")
-        getAllMoviesRepo.getMoviesList<Any>(
+        val list = arrayListOf<Any>()
+        list.add("4")
+        list.add("1")
+        list.add("1")
+        list.add(apiKey)
+       /* getAllMoviesRepo.getMoviesList<Any>(
             object : NetworkCallbacks {
                 override fun onResult(result: Any) {
                     Log.d("ok", "onResult: ok ")
@@ -31,7 +36,7 @@ class MainActivityViewModel @ViewModelInject constructor(
                     Log.d("err", "onError: $code + $statusMessage")
                 }
             },
-            "4", "1", "1", apiKey
-        )
+            list
+        )*/
     }
 }

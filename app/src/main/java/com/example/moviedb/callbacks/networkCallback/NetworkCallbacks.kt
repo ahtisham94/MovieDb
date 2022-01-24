@@ -2,6 +2,5 @@ package com.example.moviedb.callbacks.networkCallback
 
 interface NetworkCallbacks {
 
-    fun onResult(result: Any)
-    fun onError(code: Int, statusMessage: String)
+    fun onResponse(success:Boolean,code: Int,message:String,result: Any?)
 }

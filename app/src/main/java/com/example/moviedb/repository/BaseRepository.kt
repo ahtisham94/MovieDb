@@ -12,13 +12,27 @@ abstract class BaseRepository {
         call.enqueue(object : Callback<t> {
             override fun onResponse(call: Call<t>, response: Response<t>) {
                 if (response.code() == 200) {
-                    response.body()?.let { networkCallbacks.onResult(it) }
-                } else networkCallbacks.onError(response.code(), response.message())
+
+
+                    response.body()?.let {
+                        networkCallbacks.onResponse(
+                            response.isSuccessful,
+                            response.code(), response.message(), it
+                        )
+                    }
+                } else networkCallbacks.onResponse(
+                    false, response.code(),
+                    response.message(), null
+                )
 
             }
 
             override fun onFailure(call: Call<t>, t: Throwable) {
-                t.message?.let { networkCallbacks.onError(-1, it) }
+                t.message?.let {
+                    networkCallbacks.onResponse(
+                        false, -1, it, null
+                    )
+                }
             }
         }
         )
