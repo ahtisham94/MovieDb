@@ -96,7 +96,8 @@ class MovieItemObserver : BaseObservable() {
         @JvmStatic
         @BindingAdapter(value = ["setMaxProgress"])
         fun setMaxProgress(seekbar: ProgressBar, progress: Int) {
-           seekbar.progress=progress
+            seekbar.progress=0
+            seekbar.progress = progress
         }
     }
 }

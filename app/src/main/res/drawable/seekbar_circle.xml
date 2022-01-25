@@ -28,17 +28,5 @@
             </shape>
         </rotate>
     </item>
-<!--    <item>-->
-<!--        <shape-->
-<!--            android:shape="oval"-->
-<!--            android:thicknessRatio="16"-->
-<!--            android:useLevel="false">-->
-<!--            <solid android:color="#DDD"/>-->
-<!--            <solid android:color="@color/colorBlack" />-->
-<!--            <size-->
-<!--                android:width="2dp"-->
-<!--                android:height="2dp" />-->
-<!--        </shape>-->
-<!--    </item>-->
 
 </layer-list>
