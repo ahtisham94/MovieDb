@@ -21,6 +21,7 @@ import javax.inject.Named
 class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextListener {
 
     public val mainActivityViewModel: MainActivityViewModel by viewModels()
+    var searchView: SearchView? = null
 
     @Inject
     lateinit var adapter: MoviesListAdapter
@@ -30,8 +31,6 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
         setObservers()
         setObserver(mainActivityViewModel)
         setSupportActionBar(toolbar as Toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(false)
         setTitle("Movies DB")
     }
 
@@ -56,9 +55,9 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.searchbar_menu, menu)
         val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as SearchView
-        searchView.queryHint = getString(R.string.search)
-        searchView.setOnQueryTextListener(this)
+        searchView = searchItem?.actionView as SearchView
+        searchView?.queryHint = getString(R.string.search)
+        searchView?.setOnQueryTextListener(this)
         return true
     }
 
@@ -72,4 +71,12 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
         return true
     }
 
+    fun closeSearchView() {
+        searchView?.onActionViewCollapsed()
+    }
+
+    fun setToobarIcons(show:Boolean){
+        supportActionBar?.setDisplayHomeAsUpEnabled(show)
+        supportActionBar?.setDisplayShowHomeEnabled(show)
+    }
 }

@@ -7,14 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
+import com.example.moviedb.MainActivity
 
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMovieDetailsBinding
 import com.example.moviedb.observers.moviesDataObservers.MovieItemObserver
+import java.lang.Exception
 
 class MovieDetailsFragment : Fragment() {
     val args: MovieDetailsFragmentArgs by navArgs()
     var binding: FragmentMovieDetailsBinding? = null
+    var mainActivity: MainActivity? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,16 +32,22 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movieItemObserver = MovieItemObserver()
-        movieItemObserver.movieReleaseDate = args.movieDetails.releaseDate
-        movieItemObserver.movieRatings = args.movieDetails.voteAverage
-        movieItemObserver.movieRatingsInt = args.movieDetails.voteAverage.toInt() * 10
-        movieItemObserver.movieRatingsText = args.movieDetails.voteAverage.toString() + "%"
-        movieItemObserver.movieTile = args.movieDetails.title
-        movieItemObserver.movieDescription = args.movieDetails.overview
-        movieItemObserver.imageUrl = args.movieDetails.posterPath
-        binding?.movieDetails = movieItemObserver
-        binding?.backBtn?.setOnClickListener { activity?.onBackPressed() }
+        try {
+            mainActivity = activity as MainActivity
+            mainActivity?.setToobarIcons(true)
+            val movieItemObserver = MovieItemObserver()
+            binding?.movieRatingProgress?.invalidate()
+            movieItemObserver.movieReleaseDate = args.movieDetails.releaseDate
+            movieItemObserver.movieRatings = args.movieDetails.voteAverage
+            movieItemObserver.movieRatingsInt = args.movieDetails.voteAverage.toInt() * 10
+            movieItemObserver.movieRatingsText = args.movieDetails.voteAverage.toString() + "%"
+            movieItemObserver.movieTile = args.movieDetails.title
+            movieItemObserver.movieDescription = args.movieDetails.overview
+            movieItemObserver.imageUrl = args.movieDetails.posterPath
+            binding?.movieDetails = movieItemObserver
+            binding?.backBtn?.setOnClickListener { activity?.onBackPressed() }
+        }catch (e:Exception){}
+
     }
 
 }

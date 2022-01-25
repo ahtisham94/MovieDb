@@ -29,6 +29,7 @@ class MoviesListFragment : Fragment(), GenericCallback {
             mainActivity = activity as MainActivity
             moviesListRecycler.adapter = mainActivity!!.adapter
             mainActivity!!.adapter.setCallback(this)
+            mainActivity?.setToobarIcons(false)
         } catch (e: Exception) {
 
         }
@@ -37,6 +38,7 @@ class MoviesListFragment : Fragment(), GenericCallback {
 
     override fun genericResponse(t: Any) {
         if (t is MovieDetailsModel) {
+            mainActivity?.closeSearchView()
             findNavController().navigate(
                 MoviesListFragmentDirections.gotoMovieDetailsFragmentAction(
                     t
