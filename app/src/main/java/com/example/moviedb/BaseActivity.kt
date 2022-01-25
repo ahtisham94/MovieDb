@@ -2,6 +2,7 @@ package com.example.moviedb
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -38,6 +39,10 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
 
     open fun onDismiss(params: Any?) {
 
+    }
+
+    fun showToast(msg:String){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
     }
 
     fun showAlterDialog(code: String, message: String, dissmiss: DialogDismiss) {

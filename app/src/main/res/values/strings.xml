@@ -9,4 +9,6 @@
     <string name="moviename">MovieName</string>
     <string name="_2022">2022</string>
     <string name="go_back">Go Back</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search</string>
 </resources>

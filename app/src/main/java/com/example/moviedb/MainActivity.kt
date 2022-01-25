@@ -2,8 +2,11 @@ package com.example.moviedb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -15,7 +18,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ViewDataBinding>() {
+class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextListener {
 
     public val mainActivityViewModel: MainActivityViewModel by viewModels()
 
@@ -48,6 +51,25 @@ class MainActivity : BaseActivity<ViewDataBinding>() {
 
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.searchbar_menu, menu)
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as SearchView
+        searchView.queryHint = getString(R.string.search)
+        searchView.setOnQueryTextListener(this)
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        showToast("Query Inserted $query")
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        adapter.filter(newText!!)
+        return true
     }
 
 }
