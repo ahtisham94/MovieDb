@@ -38,12 +38,11 @@ class MovieDetailsFragment : Fragment() {
             val movieItemObserver = MovieItemObserver()
             movieItemObserver.movieReleaseDate = args.movieDetails.releaseDate
             movieItemObserver.movieRatings = args.movieDetails.voteAverage
-//            movieItemObserver.movieRatingsInt = args.movieDetails.voteAverage.toInt() * 10
+            movieItemObserver.movieRatingsInt = args.movieDetails.voteAverage.toInt() * 10
             movieItemObserver.movieRatingsText = args.movieDetails.voteAverage.toString() + "%"
             movieItemObserver.movieTile = args.movieDetails.title
             movieItemObserver.movieDescription = args.movieDetails.overview
             movieItemObserver.imageUrl = args.movieDetails.posterPath
-            binding?.movieRatingProgress?.progress=args.movieDetails.voteAverage.toInt() * 10
             binding?.movieDetails = movieItemObserver
             binding?.backBtn?.setOnClickListener { activity?.onBackPressed() }
         }catch (e:Exception){}
