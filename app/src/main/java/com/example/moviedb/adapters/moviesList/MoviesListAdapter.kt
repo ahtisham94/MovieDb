@@ -25,17 +25,25 @@ class MoviesListAdapter @Inject constructor(var moviesList: ArrayList<MovieDetai
     }
 
     override fun onBindViewHolder(holder: MyMoviesListHolder, position: Int) {
-        moviesList.get(holder.adapterPosition)?.let { holder.bind(it) }
+        moviesList.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
         return moviesList.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return super.getItemId(position)
+    }
+
     fun setList(arrayList: ArrayList<MovieDetailsModel>) {
         copyList = arrayList
         moviesList = arrayList
         notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     var genericCallback: GenericCallback? = null
@@ -70,6 +78,7 @@ class MoviesListAdapter @Inject constructor(var moviesList: ArrayList<MovieDetai
             movieItemObserver.movieReleaseDate = movieDetailsModel.releaseDate
             binding.container.setOnClickListener {
                 genericCallback?.genericResponse(movieDetailsModel)
+                notifyDataSetChanged()
             }
             binding.movieDetails = movieItemObserver
             binding.executePendingBindings()

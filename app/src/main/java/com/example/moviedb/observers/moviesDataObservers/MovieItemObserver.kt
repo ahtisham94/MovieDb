@@ -2,6 +2,8 @@ package com.example.moviedb.observers.moviesDataObservers
 
 import android.os.Build
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.databinding.BaseObservable
@@ -88,6 +90,13 @@ class MovieItemObserver : BaseObservable() {
             if (calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)) {
                 releaseDateYearTv.setTextColor(releaseDateYearTv.context.getColor(R.color.red))
             }
+        }
+
+        @RequiresApi(Build.VERSION_CODES.M)
+        @JvmStatic
+        @BindingAdapter(value = ["setMaxProgress"])
+        fun setMaxProgress(seekbar: ProgressBar, progress: Int) {
+           seekbar.progress=progress
         }
     }
 }
