@@ -50,6 +50,7 @@ object AppModules {
 
     @Singleton
     @Provides
+    @Named("apiKey")
     fun getApiKey(@ApplicationContext context: Context): String {
         return context.getString(R.string.api_key)
     }

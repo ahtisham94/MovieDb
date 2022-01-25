@@ -1,6 +1,7 @@
 package com.example.moviedb.models.moviesModels
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class MovieDetailsModel(
     @SerializedName("id") val id: Int,
@@ -11,5 +12,5 @@ data class MovieDetailsModel(
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("release_date") val releaseDate: String,
     @SerializedName("vote_average") val voteAverage: Float
-) {
+) : Serializable {
 }

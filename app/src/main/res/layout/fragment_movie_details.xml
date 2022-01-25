@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="movieDetails"
+            type="com.example.moviedb.observers.moviesDataObservers.MovieItemObserver" />
+    </data>
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/_20sdp"
+                app:layout_constraintBottom_toTopOf="@+id/backBtn">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_170sdp"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/posterImage"
+                            posterImage="@{movieDetails.imageUrl}"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_170sdp"
+                            android:contentDescription="@string/app_name"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ProgressBar
+                        android:id="@+id/movieRatingProgress"
+                        style="@style/CircularDeterminateProgressBar"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:background="@drawable/circle_black"
+                        android:elevation="@dimen/_5sdp"
+                        android:progress="@{movieDetails.movieRatingsInt}"
+                        app:layout_constraintBottom_toBottomOf="@+id/cardImage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardImage" />
+
+                    <TextView
+                        android:id="@+id/progresstv"
+                        style="@style/titleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="@dimen/_5sdp"
+                        android:text="@={movieDetails.movieRatingsText}"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintBottom_toBottomOf="@+id/movieRatingProgress"
+                        app:layout_constraintEnd_toEndOf="@+id/movieRatingProgress"
+                        app:layout_constraintStart_toStartOf="@+id/movieRatingProgress"
+                        app:layout_constraintTop_toTopOf="@+id/movieRatingProgress" />
+
+                    <TextView
+                        android:id="@+id/movietitleTv"
+                        style="@style/headlingStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@={movieDetails.movieTile}"
+                        android:textSize="22sp"
+                        app:layout_constraintTop_toBottomOf="@+id/movieRatingProgress" />
+
+                    <TextView
+                        android:id="@+id/overViewtv"
+                        style="@style/titleStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:maxHeight="@dimen/_100sdp"
+                        android:scrollbars="vertical"
+                        android:text="@={movieDetails.movieDescription}"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@+id/movietitleTv" />
+
+                    <TextView
+                        android:id="@+id/movieReleaseDateTv"
+                        style="@style/titleStyle"
+                        releaseDateColor="@{movieDetails.movieReleaseDate}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@={movieDetails.movieReleaseDate}"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/overViewtv"
+                        app:layout_constraintTop_toBottomOf="@+id/overViewtv" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+
+
+            <Button
+                android:id="@+id/backBtn"
+                style="@style/buttonStyle"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:text="@string/go_back"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

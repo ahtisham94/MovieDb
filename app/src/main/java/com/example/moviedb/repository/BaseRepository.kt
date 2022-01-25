@@ -22,8 +22,12 @@ abstract class BaseRepository {
                     }
                 } else networkCallbacks.onResponse(
                     false, response.code(),
-                    response.message(), null
+                    when (response.message().isNullOrEmpty()) {
+                        true -> "Server not responding"
+                        false -> response.message()
+                    }, null
                 )
+
 
             }
 

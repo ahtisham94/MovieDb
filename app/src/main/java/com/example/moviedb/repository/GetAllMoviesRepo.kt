@@ -19,7 +19,8 @@ class GetAllMoviesRepo @Inject constructor(private val dataServices: GetDataServ
         registerAPIRequest(
             networkCallbacks, dataServices.getMoviesList(
                 list[0] as String, list[1] as String, list[2] as String,
-                list[3] as String
+                list[3] as String,
+                list[4] as String
             )
         )
     }

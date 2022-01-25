@@ -8,12 +8,13 @@ import retrofit2.http.Query
 
 interface GetDataServices {
 
-    @GET("{type}/list/{id}")
+    @GET("{type}/movie/{id}")
     fun getMoviesList(
         @Path("type") path: String,
         @Path("id") id: String,
-        @Query("page") pageNo: String,
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") pageNo: String
     ): Call<MoviesRootResponseModel>
 }
 

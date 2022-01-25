@@ -3,40 +3,35 @@ package com.example.moviedb.viewModels
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.moviedb.callbacks.networkCallback.NetworkCallbacks
 import com.example.moviedb.models.moviesModels.MovieDetailsModel
+import com.example.moviedb.models.moviesModels.MoviesRootResponseModel
 import com.example.moviedb.repository.GetAllMoviesRepo
-import kotlin.math.log
+import javax.inject.Named
 
 class MainActivityViewModel @ViewModelInject constructor(
-    val getAllMoviesRepo: GetAllMoviesRepo
+    val getAllMoviesRepo: GetAllMoviesRepo, @Named("apiKey") val apiKey: String
 ) :
     BaseViewModel() {
-    var list: MutableLiveData<ArrayList<MovieDetailsModel>>? = null
+    var arraylist: MutableLiveData<ArrayList<MovieDetailsModel>>? = null
 
     init {
-        list = MutableLiveData()
+        arraylist = MutableLiveData()
     }
 
-    fun getMoviesList(apiKey: String) {
+    fun <t> getMoviesList() {
         Log.d("key", "getMoviesList: $apiKey")
         val list = arrayListOf<Any>()
-        list.add("4")
-        list.add("1")
-        list.add("1")
+        list.add("3")
+        list.add("upcoming")
         list.add(apiKey)
-       /* getAllMoviesRepo.getMoviesList<Any>(
-            object : NetworkCallbacks {
-                override fun onResult(result: Any) {
-                    Log.d("ok", "onResult: ok ")
-                }
-
-                override fun onError(code: Int, statusMessage: String) {
-                    Log.d("err", "onError: $code + $statusMessage")
-                }
-            },
-            list
-        )*/
+        list.add("en")
+        list.add("1")
+        callToRepo(getAllMoviesRepo, "getMoviesList", object : NetworkCallbacks {
+            override fun onResponse(success: Boolean, code: Int, message: String, result: Any?) {
+                val rootResponse=result as MoviesRootResponseModel
+                arraylist?.postValue(rootResponse.result)
+            }
+        }, list)
     }
 }

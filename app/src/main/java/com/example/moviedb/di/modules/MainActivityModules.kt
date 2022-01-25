@@ -1,5 +1,7 @@
 package com.example.moviedb.di.modules
 
+import com.example.moviedb.adapters.moviesList.MoviesListAdapter
+import com.example.moviedb.models.moviesModels.MovieDetailsModel
 import com.example.moviedb.network.GetDataServices
 import com.example.moviedb.repository.GetAllMoviesRepo
 import dagger.Module
@@ -19,6 +21,12 @@ object MainActivityModules {
     @Named("movieRepo")
     fun getMoviesListRepo(dataServices: GetDataServices): GetAllMoviesRepo {
         return GetAllMoviesRepo(dataServices)
+    }
+
+    @ActivityScoped
+    @Provides
+    fun getMoviesAdapter(): MoviesListAdapter {
+        return MoviesListAdapter(arrayListOf())
     }
 
 }

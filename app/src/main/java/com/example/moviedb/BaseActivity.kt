@@ -1,21 +1,46 @@
 package com.example.moviedb
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import com.example.moviedb.callbacks.dialogCallback.DialogDismiss
+import com.example.moviedb.dialogs.MyAltertDialog
 import com.example.moviedb.viewModels.BaseViewModel
 
-abstract class BaseActivity :AppCompatActivity() {
+abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
 
+    var myApplication: MyApplication? = null
+    protected var binding: Binding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        myApplication = applicationContext as MyApplication
+        myApplication?.setBaseActivity(this as BaseActivity<ViewDataBinding>)
     }
 
-    private fun setObserver(baseViewModel: BaseViewModel) {
+    protected fun bindView(layoutId: Int) {
+        binding = DataBindingUtil.setContentView<Binding>(this, layoutId)
+    }
+
+    public fun setObserver(baseViewModel: BaseViewModel) {
 
         baseViewModel.errorLiveData.observe(this, Observer {
-
+            Log.d("err", "onError: $it[0] + $it[1]")
+            showAlterDialog(it[0].toString(), it[1].toString(), object : DialogDismiss {
+                override fun onDismiss() {
+                }
+            })
         })
 
+    }
+
+    open fun onDismiss(params: Any?) {
+
+    }
+
+    fun showAlterDialog(code: String, message: String, dissmiss: DialogDismiss) {
+        MyAltertDialog(this, code, message, dissmiss).show()
     }
 }
