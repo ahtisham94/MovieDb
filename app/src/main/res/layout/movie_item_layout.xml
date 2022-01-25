@@ -60,12 +60,13 @@
 
             <TextView
                 android:id="@+id/movieReleaseDate"
-                style="@style/titleStyle"
+                style="@style/headlingStyle"
                 releaseDateColor="@{movieDetails.movieReleaseDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:textStyle="bold"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="16sp"
                 android:text="@={movieDetails.movieReleaseDate}"
                 app:layout_constraintBottom_toBottomOf="parent"
