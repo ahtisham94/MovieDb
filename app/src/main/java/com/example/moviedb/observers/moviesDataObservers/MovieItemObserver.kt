@@ -1,5 +1,6 @@
 package com.example.moviedb.observers.moviesDataObservers
 
+import android.animation.ObjectAnimator
 import android.os.Build
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -96,8 +97,10 @@ class MovieItemObserver : BaseObservable() {
         @JvmStatic
         @BindingAdapter(value = ["setMaxProgress"])
         fun setMaxProgress(seekbar: ProgressBar, progress: Int) {
-            seekbar.progress=0
-            seekbar.progress = progress
+            ObjectAnimator.ofInt(seekbar, "progress", progress)
+                .setDuration(1000)
+                .start();
+//            seekbar.progress = progress
         }
     }
 }

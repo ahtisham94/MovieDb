@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
@@ -22,7 +23,7 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
 
     public val mainActivityViewModel: MainActivityViewModel by viewModels()
     var searchView: SearchView? = null
-
+    var searchItem : MenuItem?=null
     @Inject
     lateinit var adapter: MoviesListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +55,7 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.searchbar_menu, menu)
-        val searchItem = menu?.findItem(R.id.action_search)
+        searchItem = menu?.findItem(R.id.action_search)
         searchView = searchItem?.actionView as SearchView
         searchView?.queryHint = getString(R.string.search)
         searchView?.setOnQueryTextListener(this)
@@ -73,10 +74,17 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
 
     fun closeSearchView() {
         searchView?.onActionViewCollapsed()
+        searchView?.visibility = View.GONE
     }
 
-    fun setToobarIcons(show:Boolean){
+    fun setToobarIcons(show: Boolean) {
         supportActionBar?.setDisplayHomeAsUpEnabled(show)
         supportActionBar?.setDisplayShowHomeEnabled(show)
     }
+
+    fun showSreachView(visible:Boolean) {
+        searchItem?.setVisible(visible)
+    }
+
+
 }

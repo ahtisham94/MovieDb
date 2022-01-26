@@ -43,6 +43,6 @@
 
     <style name="CircularDeterminateProgressBar" >
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:progressDrawable">@drawable/seekbar_circle</item>
+        <item name="android:progressDrawable">@drawable/seekbar_circle_2</item>
     </style>
 </resources>
