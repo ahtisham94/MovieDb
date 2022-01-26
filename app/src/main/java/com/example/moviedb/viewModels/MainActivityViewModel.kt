@@ -23,7 +23,7 @@ class MainActivityViewModel @ViewModelInject constructor(
         Log.d("key", "getMoviesList: $apiKey")
         val list = arrayListOf<Any>()
         list.add("3")
-        list.add("upcoming")
+        list.add("popular")
         list.add(apiKey)
         list.add("en")
         list.add("1")

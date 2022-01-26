@@ -29,6 +29,13 @@ class MovieItemObserver : BaseObservable() {
             notifyPropertyChanged(BR.imageUrl)
         }
 
+    var backgroundPoster: String? = null
+        @Bindable get
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.backgroundPoster)
+        }
+
     var movieTile: String? = "MovieTitle"
         @Bindable get
         set(value) {

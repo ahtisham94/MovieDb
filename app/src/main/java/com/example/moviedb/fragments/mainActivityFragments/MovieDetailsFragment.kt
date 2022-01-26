@@ -42,7 +42,7 @@ class MovieDetailsFragment : Fragment() {
             movieItemObserver.movieRatingsText = (args.movieDetails.voteAverage * 10.0f).toString() + "%"
             movieItemObserver.movieTile = args.movieDetails.title
             movieItemObserver.movieDescription = args.movieDetails.overview
-            movieItemObserver.imageUrl = args.movieDetails.posterPath
+            movieItemObserver.imageUrl = args.movieDetails.backdrop_path
             binding?.movieDetails = movieItemObserver
             binding?.backBtn?.setOnClickListener { activity?.onBackPressed() }
         }catch (e:Exception){}

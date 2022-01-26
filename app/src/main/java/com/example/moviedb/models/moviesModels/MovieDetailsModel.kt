@@ -10,6 +10,7 @@ data class MovieDetailsModel(
     @SerializedName("overview") val overview: String,
     @SerializedName("title") val title: String,
     @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("backdrop_path") val backdrop_path: String,
     @SerializedName("release_date") val releaseDate: String,
     @SerializedName("vote_average") val voteAverage: Float
 ) : Serializable {
