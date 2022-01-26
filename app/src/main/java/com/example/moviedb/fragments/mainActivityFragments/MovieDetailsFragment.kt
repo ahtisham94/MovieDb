@@ -38,8 +38,8 @@ class MovieDetailsFragment : Fragment() {
             val movieItemObserver = MovieItemObserver()
             movieItemObserver.movieReleaseDate = args.movieDetails.releaseDate
             movieItemObserver.movieRatings = args.movieDetails.voteAverage
-            movieItemObserver.movieRatingsInt = args.movieDetails.voteAverage.toInt() * 10
-            movieItemObserver.movieRatingsText = args.movieDetails.voteAverage.toString() + "%"
+            movieItemObserver.movieRatingsInt = (args.movieDetails.voteAverage * 10.0f).toInt()
+            movieItemObserver.movieRatingsText = (args.movieDetails.voteAverage * 10.0f).toString() + "%"
             movieItemObserver.movieTile = args.movieDetails.title
             movieItemObserver.movieDescription = args.movieDetails.overview
             movieItemObserver.imageUrl = args.movieDetails.posterPath
