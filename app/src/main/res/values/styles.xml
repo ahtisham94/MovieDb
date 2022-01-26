@@ -41,7 +41,7 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
-    <style name="CircularDeterminateProgressBar">
+    <style name="CircularDeterminateProgressBar" >
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/seekbar_circle</item>
     </style>
