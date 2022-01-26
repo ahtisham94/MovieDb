@@ -102,5 +102,18 @@ class MovieItemObserver : BaseObservable() {
                 .start();
 //            seekbar.progress = progress
         }
+
+        @RequiresApi(Build.VERSION_CODES.M)
+        @JvmStatic
+        @BindingAdapter(value = ["setAverageInText"])
+        fun setAverageInText(textView: TextView, progress: Int) {
+            val animator = ObjectAnimator.ofInt(0, progress)
+                .setDuration(1000)
+            animator.addUpdateListener {
+                textView.text = it.animatedValue.toString() + "%"
+            }
+            animator.start()
+//            seekbar.progress = progress
+        }
     }
 }
