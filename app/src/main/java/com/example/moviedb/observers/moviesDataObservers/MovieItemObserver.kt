@@ -1,6 +1,7 @@
 package com.example.moviedb.observers.moviesDataObservers
 
 import android.animation.ObjectAnimator
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -12,6 +13,11 @@ import androidx.databinding.Bindable
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.moviedb.R
 import com.example.moviedb.enumirations.MyUrls
 import com.example.moviedb.enumirations.UrlsEnums
@@ -78,25 +84,56 @@ class MovieItemObserver : BaseObservable() {
             notifyPropertyChanged(BR.movieRatingsText)
         }
 
+    var showImageProgress: Boolean? = false
+        @Bindable get
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.showImageProgress)
+        }
+
     companion object {
         @JvmStatic
         @BindingAdapter(value = ["posterImage"])
         fun posterImage(posterImage: ImageView, url: String) {
             Glide.with(posterImage).load(UrlsEnums.IMAGE_BASE_URL.myUrl.url + url)
                 .placeholder(R.drawable.clapperboard)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+
+                        return false
+                    }
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
+                })
                 .centerCrop().into(posterImage)
         }
 
         @RequiresApi(Build.VERSION_CODES.M)
         @JvmStatic
         @BindingAdapter(value = ["releaseDateColor"])
-        fun releaseDateColor(releaseDateYearTv: TextView, releaseDate: String) {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(releaseDate)
-            val calendar = Calendar.getInstance()
-            calendar.time = dateFormat
-            calendar.get(Calendar.YEAR)
-            if (calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)) {
-                releaseDateYearTv.setTextColor(releaseDateYearTv.context.getColor(R.color.red))
+        fun releaseDateColor(releaseDateYearTv: TextView, releaseDate: String?) {
+            if (!releaseDate.isNullOrEmpty()) {
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd").parse(releaseDate)
+                val calendar = Calendar.getInstance()
+                calendar.time = dateFormat
+                calendar.get(Calendar.YEAR)
+                if (calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)) {
+                    releaseDateYearTv.setTextColor(releaseDateYearTv.context.getColor(R.color.red))
+                }
             }
         }
 

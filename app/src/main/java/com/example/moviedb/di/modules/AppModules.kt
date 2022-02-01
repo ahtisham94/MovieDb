@@ -5,6 +5,7 @@ import com.example.moviedb.R
 import com.example.moviedb.enumirations.UrlsEnums
 import com.example.moviedb.network.GetDataServices
 import com.example.moviedb.network.RetrofitClientInstance
+import com.example.moviedb.pagers.MoviePagingSource
 import com.example.moviedb.repository.GetAllMoviesRepo
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -54,5 +55,15 @@ object AppModules {
     fun getApiKey(@ApplicationContext context: Context): String {
         return context.getString(R.string.api_key)
     }
+
+ /*   @Singleton
+    @Provides
+    fun getMoviePagingSource(
+        dataServices: GetDataServices,
+        @Named("apiKey") apiKey: String
+    )
+            : MoviePagingSource {
+        return MoviePagingSource(dataServices, apiKey)
+    }*/
 
 }

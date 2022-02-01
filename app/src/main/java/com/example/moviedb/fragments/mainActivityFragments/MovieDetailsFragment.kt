@@ -6,18 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.moviedb.MainActivity
 
 import com.example.moviedb.R
 import com.example.moviedb.databinding.FragmentMovieDetailsBinding
 import com.example.moviedb.observers.moviesDataObservers.MovieItemObserver
+import com.example.moviedb.viewModels.MainActivityViewModel
 import java.lang.Exception
 
 class MovieDetailsFragment : Fragment() {
     val args: MovieDetailsFragmentArgs by navArgs()
     var binding: FragmentMovieDetailsBinding? = null
     var mainActivity: MainActivity? = null
+    val mainActivityViewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,13 +42,15 @@ class MovieDetailsFragment : Fragment() {
             movieItemObserver.movieReleaseDate = args.movieDetails.releaseDate
             movieItemObserver.movieRatings = args.movieDetails.voteAverage
             movieItemObserver.movieRatingsInt = (args.movieDetails.voteAverage * 10.0f).toInt()
-            movieItemObserver.movieRatingsText = (args.movieDetails.voteAverage * 10.0f).toString() + "%"
+            movieItemObserver.movieRatingsText =
+                (args.movieDetails.voteAverage * 10.0f).toString() + "%"
             movieItemObserver.movieTile = args.movieDetails.title
             movieItemObserver.movieDescription = args.movieDetails.overview
             movieItemObserver.imageUrl = args.movieDetails.backdrop_path
             binding?.movieDetails = movieItemObserver
             binding?.backBtn?.setOnClickListener { activity?.onBackPressed() }
-        }catch (e:Exception){}
+        } catch (e: Exception) {
+        }
 
     }
 

@@ -23,10 +23,10 @@ object MainActivityModules {
         return GetAllMoviesRepo(dataServices)
     }
 
-    @ActivityScoped
-    @Provides
-    fun getMoviesAdapter(): MoviesListAdapter {
-        return MoviesListAdapter(arrayListOf())
-    }
+//    @ActivityScoped
+//    @Provides
+//    fun getMoviesAdapter(): MoviesListAdapter {
+//        return MoviesListAdapter()
+//    }
 
 }

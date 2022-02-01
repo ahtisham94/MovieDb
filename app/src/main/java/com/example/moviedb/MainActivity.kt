@@ -2,6 +2,7 @@ package com.example.moviedb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,10 +12,17 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import com.example.moviedb.adapters.moviesList.MoviesListAdapter
 import com.example.moviedb.viewModels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectIndexed
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -23,9 +31,9 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
 
     public val mainActivityViewModel: MainActivityViewModel by viewModels()
     var searchView: SearchView? = null
-    var searchItem : MenuItem?=null
-    @Inject
-    lateinit var adapter: MoviesListAdapter
+    var searchItem: MenuItem? = null
+    @ExperimentalCoroutinesApi
+    @ExperimentalPagingApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindView(R.layout.activity_main)
@@ -34,12 +42,10 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
         setSupportActionBar(toolbar as Toolbar)
         setTitle("Movies DB")
     }
-
+    @ExperimentalCoroutinesApi
+    @ExperimentalPagingApi
     private fun setObservers() {
-        mainActivityViewModel.getMoviesList<Any>()
-        mainActivityViewModel.arraylist?.observe(this, Observer {
-            adapter.setList(it)
-        })
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,7 +74,7 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        adapter.filter(newText!!)
+//        adapter.filterData(newText!!)
         return true
     }
 
@@ -82,7 +88,7 @@ class MainActivity : BaseActivity<ViewDataBinding>(), SearchView.OnQueryTextList
         supportActionBar?.setDisplayShowHomeEnabled(show)
     }
 
-    fun showSreachView(visible:Boolean) {
+    fun showSreachView(visible: Boolean) {
         searchItem?.setVisible(visible)
     }
 

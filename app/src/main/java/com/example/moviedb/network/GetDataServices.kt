@@ -16,5 +16,14 @@ interface GetDataServices {
         @Query("language") language: String,
         @Query("page") pageNo: String
     ): Call<MoviesRootResponseModel>
+
+    @GET("{type}/movie/{id}")
+   suspend fun getMoviesListPaging(
+        @Path("type") path: String,
+        @Path("id") id: String,
+        @Query("api_key") apiKey: String,
+        @Query("language") language: String,
+        @Query("page") pageNo: String
+    ): MoviesRootResponseModel
 }
 

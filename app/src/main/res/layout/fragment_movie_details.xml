@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="movieDetails"
             type="com.example.moviedb.observers.moviesDataObservers.MovieItemObserver" />
@@ -28,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardImage"
                     android:layout_width="match_parent"
@@ -45,6 +48,16 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.cardview.widget.CardView>
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_5sdp"
+                    android:visibility="@{movieDetails.showImageProgress?View.VISIBLE:View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cardImage" />
 
                 <ProgressBar
                     android:id="@+id/movieRatingProgress"

@@ -2,7 +2,6 @@
 <layout>
 
     <data>
-
         <variable
             name="movieDetails"
             type="com.example.moviedb.observers.moviesDataObservers.MovieItemObserver" />
